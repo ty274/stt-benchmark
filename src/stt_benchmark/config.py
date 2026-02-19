@@ -29,6 +29,7 @@ class BenchmarkConfig(BaseSettings):
     # API Keys (loaded from environment)
     anthropic_api_key: str = Field(default="", alias="ANTHROPIC_API_KEY")
     assemblyai_api_key: str = Field(default="", alias="ASSEMBLYAI_API_KEY")
+    assemblyai_api_private_key: str = Field(default="", alias="ASSEMBLYAI_API_PRIVATE_KEY")
     cartesia_api_key: str = Field(default="", alias="CARTESIA_API_KEY")
     deepgram_api_key: str = Field(default="", alias="DEEPGRAM_API_KEY")
     elevenlabs_api_key: str = Field(default="", alias="ELEVENLABS_API_KEY")

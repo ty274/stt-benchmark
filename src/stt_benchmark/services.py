@@ -92,6 +92,24 @@ def create_assemblyai() -> FrameProcessor:
     )
 
 
+def create_assemblyai_u3pro_streaming() -> FrameProcessor:
+    from pipecat.services.assemblyai.models import AssemblyAIConnectionParams
+    from pipecat.services.assemblyai.stt import AssemblyAISTTService
+
+    params = AssemblyAIConnectionParams(
+        end_of_turn_confidence_threshold=1.0,
+        max_turn_silence=2000,
+    )
+    # Bypass Literal validation — "universal-3-pro-streaming" not yet in pipecat's type
+    params.__dict__["speech_model"] = "u3-pro"
+
+    return AssemblyAISTTService(
+        api_key=_get_env("ASSEMBLYAI_API_PRIVATE_KEY"),
+        connection_params=params,
+        vad_force_turn_endpoint=True,
+    )
+
+
 def create_aws() -> FrameProcessor:
     from pipecat.services.aws.stt import AWSTranscribeSTTService
 
@@ -338,6 +356,10 @@ STT_SERVICES: dict[str, ServiceDefinition] = {
     "assemblyai": ServiceDefinition(
         factory=create_assemblyai,
         required_env_vars=["ASSEMBLYAI_API_KEY"],
+    ),
+    "assemblyai_u3pro_streaming": ServiceDefinition(
+        factory=create_assemblyai_u3pro_streaming,
+        required_env_vars=["ASSEMBLYAI_API_PRIVATE_KEY"],
     ),
     "aws": ServiceDefinition(
         factory=create_aws,

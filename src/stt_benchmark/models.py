@@ -15,6 +15,7 @@ class ServiceName(str, Enum):
     """Supported STT services."""
 
     ASSEMBLYAI = "assemblyai"
+    ASSEMBLYAI_U3PRO_STREAMING = "assemblyai_u3pro_streaming"
     AWS = "aws"
     AZURE = "azure"
     CARTESIA = "cartesia"
